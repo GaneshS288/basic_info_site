@@ -1,7 +1,8 @@
-import http from "http";
 import fs from "fs";
+import express from "express";
 import "dotenv/config";
 var port = process.env.PORT || 3000;
+var app = express();
 console.log(port);
 function getHtmlUrl(url) {
     switch (url) {
@@ -19,14 +20,15 @@ function getHtmlUrl(url) {
             break;
     }
 }
-http
-    .createServer(function (req, res) {
-    var url = req.url ? req.url : "/";
-    res.writeHead(200, { "content-type": "text/html" });
-    fs.readFile(getHtmlUrl(url), { encoding: "utf-8" }, function (err, data) {
-        res.write(data);
-        res.end();
+app.get(["/", "/about-me", "/contact-me"], function (req, res) {
+    fs.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
+        res.send(data);
     });
-})
-    .listen(port);
+});
+app.get("*", function (req, res) {
+    fs.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
+        res.send(data);
+    });
+});
+app.listen(port);
 //# sourceMappingURL=index.js.map
