@@ -1,5 +1,8 @@
-import * as http from "http";
-import * as fs from "fs";
+import http from "http";
+import fs from "fs";
+import "dotenv/config";
+var port = process.env.PORT || 3000;
+console.log(port);
 function getHtmlUrl(url) {
     switch (url) {
         case "/":
@@ -25,5 +28,5 @@ http
         res.end();
     });
 })
-    .listen(3000);
+    .listen(port);
 //# sourceMappingURL=index.js.map
