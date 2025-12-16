@@ -1,8 +1,11 @@
-import fs from "fs";
-import express from "express";
-import "dotenv/config";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = require("fs");
+var express_1 = require("express");
+require("dotenv/config");
 var port = process.env.PORT || 3000;
-var app = express();
+var app = (0, express_1.default)();
+console.log(port);
 function getHtmlUrl(url) {
     switch (url) {
         case "/":
@@ -20,14 +23,13 @@ function getHtmlUrl(url) {
     }
 }
 app.get(["/", "/about-me", "/contact-me"], function (req, res) {
-    fs.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
+    fs_1.default.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
         res.send(data);
     });
 });
 app.get("*", function (req, res) {
-    fs.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
+    fs_1.default.readFile(getHtmlUrl(req.originalUrl), { encoding: "utf-8" }, function (err, data) {
         res.send(data);
     });
 });
-app.listen(port, function () { return console.log("server listening on port ".concat(port)); });
-//# sourceMappingURL=index.js.map
+app.listen(port);

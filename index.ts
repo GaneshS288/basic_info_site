@@ -5,8 +5,6 @@ import "dotenv/config";
 const port = process.env.PORT || 3000;
 const app = express();
 
-console.log(port);
-
 function getHtmlUrl(url: string) {
   switch (url) {
     case "/":
@@ -47,4 +45,4 @@ app.get("*", (req, res) => {
   );
 });
 
-app.listen(port);
+app.listen(port, () => console.log(`server listening on port ${port}`));
